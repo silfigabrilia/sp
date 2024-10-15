@@ -1,5 +1,19 @@
 <?php
 include 'header.php';
+include '../assets/conn/config.php';
+
+if (isset($_GET['aksi'])) {
+    if ($_GET['aksi'] == 'read' && isset($_GET['id_tentang'])) {
+        // Query untuk mendapatkan data penyakit berdasarkan ID
+        $result = mysqli_query($conn, "SELECT * FROM tb_tentang WHERE id_tentang='$_GET[id_tentang]'");
+        // if ($result) {
+        //     $penyakit = mysqli_fetch_assoc($result);
+            // Jika data ditemukan, arahkan ke halaman detail atau tampilkan detail penyakit
+            // Anda bisa menambahkan logika lebih lanjut di sini jika diperlukan
+            header("location:tentang.php");
+        //}
+    }
+}
 ?>
 
 <div class="container">
@@ -9,7 +23,22 @@ include 'header.php';
         </div>
 
         <div class="card-body">
-        <h6 class= "m-0 font-weight-bold text-dark">Sistem Pakar Identifikasi Penyakit Pada Pembesaran Udang Menggunakan Metode Certainty Factor</h5>
+        <?php
+            // Query untuk mendapatkan semua data penyakit
+            $data = mysqli_query($conn, "SELECT * FROM tb_tentang ORDER BY id_tentang");
+
+            // Tampilkan data penyakit jika tersedia
+            if (mysqli_num_rows($data) > 0) {
+                while ($row = mysqli_fetch_assoc($data)) {
+                    echo "<h6 class='m-0 font-weight-bold text-dark'><b>" . $row['judul'] . "</b></h6>";
+                    echo "<p><strong>Keterangan:</strong> " . $row['keterangan'] . "</p>";
+                    echo "<hr>";
+                }
+            } else {
+                echo "<p>Tidak ada data penyakit yang tersedia.</p>";
+            }
+        ?>
+        <!-- <h6 class= "m-0 font-weight-bold text-dark">Sistem Pakar Identifikasi Penyakit Pada Pembesaran Udang Menggunakan Metode Certainty Factor</h5>
         <br>
         <div class='text-justify'>
         <h9 class= "text-dark">Cara Penggunaan Aplikasi :</h5>
@@ -23,7 +52,7 @@ include 'header.php';
             <br>
             <br>B. Menu Penyakit berfungsi untuk melihat iformasi mengenai penyakit, gejala, dan pengendalian pada pembesran udang vanname.
             <br>
-            <br>C. Menu History berfungsi untuk melihat history atau riwayat identifikasi sebelumnya yang telah disimpan oleh sistem. 
+            <br>C. Menu History berfungsi untuk melihat history atau riwayat identifikasi sebelumnya yang telah disimpan oleh sistem.  -->
 
         </div>
         </div>

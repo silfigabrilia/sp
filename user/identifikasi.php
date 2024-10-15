@@ -23,13 +23,21 @@ if (isset($_GET['aksi'])) {
         if ($stmt = mysqli_prepare($conn, $query)) {
             mysqli_stmt_bind_param($stmt,"ssiss", $no_regidentifikasi, $tgl_identifikasi, $id_akun, $id_gejala, $kondisi);
 
-            foreach ($_POST['kondisi'] as $key => $value) {
-                //untuk menampung nilai cf user
-                $kondisi = $value;  //nilai cf user
-                $id_gejala = $_POST['id_gejala'][$key];
-                mysqli_stmt_execute($stmt);
-
+            foreach ($_POST['id_gejala'] as $key => $value) {
+                if ($_POST['kondisi'][$value]) {
+                    //untuk menampung nilai cf user
+                    $kondisi = $_POST['kondisi'][$value];  //nilai cf user
+                    $id_gejala = $value;
+                    mysqli_stmt_execute($stmt);
+                }
             }
+            // foreach ($_POST['kondisi'] as $key => $value) {
+            //     //untuk menampung nilai cf user
+            //     $kondisi = $value;  //nilai cf user
+            //     $id_gejala = $_POST['id_gejala'][$key];
+            //     mysqli_stmt_execute($stmt);
+
+            // }
             mysqli_stmt_close($stmt);
             
         }
@@ -94,7 +102,7 @@ $id_akun = $p['id_akun'];
                     <td class='text-center'>$i</td>
                     <td class='text-justify'>Apakah Udang Anda Mengalami Gejala <b>$a[nama_gejala]</b> ?</td>
                     <td >
-                    <select class='form-control' name='kondisi[]'>
+                    <select class='form-control' name='kondisi[$i]'>
                     <option selected disabled>Pilih kondisi</option>
                     <option value='0'>Tidak</option>
                     <option value='0.2'>Tidak Tahu</option>
@@ -106,7 +114,7 @@ $id_akun = $p['id_akun'];
                     </td>
                     </tr>
 
-                    <input type='hidden' name='id_gejala[]' value='$a[id_gejala]'>
+                    <input type='hidden' name='id_gejala[$i]' value='$a[id_gejala]'>
                     ";
                 }
                 ?>

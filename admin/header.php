@@ -79,6 +79,13 @@ include '../assets/conn/cek.php';
           <span>History</span></a>
       </li>
 
+      <hr class="sidebar-divider my-0">
+      <li class="nav-item">
+        <a class="nav-link" href="tentang.php">
+          <i class="fas fa-info-circle"></i>
+          <span>Tentang</span></a>
+      </li>
+
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
 
