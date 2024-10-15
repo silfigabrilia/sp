@@ -84,7 +84,7 @@ $id_akun = $p['id_akun'];
         <?php if (empty($_GET['no_regidentifikasi'])){?>
 
         <div class="card-body">
-            <form action="identifikasi.php?aksi=identifikasi" method="POST" enctype="multipart/form-data">
+            <form action="identifikasi.php?aksi=identifikasi" id="form-identifikasi" method="POST" enctype="multipart/form-data">
                 <div class="table-responsive">
                     <table class="table table-bordered">
                         <tr>
@@ -242,11 +242,16 @@ $id_akun = $p['id_akun'];
             <?php
             $data = mysqli_query($conn,"SELECT * FROM tb_penyakit WHERE nama_penyakit='$penyakitTerbesar'");
             $a=mysqli_fetch_array($data);
-            echo "
-            <div class='text-justify'>
-            $a[keterangan];
-            </div>
-            ";
+            if ($a) {
+                echo "
+                <div class='text-justify'>
+                $a[keterangan];
+                </div>
+                ";
+            }
+            else {
+                echo "Tidak diketahui.";
+            }
                 ?>
             </h6>
         </div>
@@ -258,11 +263,16 @@ $id_akun = $p['id_akun'];
             <?php
             $data = mysqli_query($conn,"SELECT * FROM tb_penyakit WHERE nama_penyakit='$penyakitTerbesar'");
             $a=mysqli_fetch_array($data);
-            echo "
-            <div class='text-justify'>
-            $a[pengendalian];
-            </div>
-            ";
+            if ($a) {
+                echo "
+                <div class='text-justify'>
+                $a[pengendalian];
+                </div>
+                ";
+            }
+            else {
+                echo "Tidak diketahui.";
+            }
                 ?>
             </h6>
     </div>
@@ -272,13 +282,17 @@ $id_akun = $p['id_akun'];
             <h5 class="font-weight-bold text primary">Kesimpulan</h5>
             <h6>
             <?php
-            
-            echo "
-            <div class='text-justify'>
-            Berdasarkan hasil perhitungan metode <b>Certainty Factor</b> diatas, dapat disimpulkan bahwa udang anda kemungkinan besar terjangkit penyakit <b class='text-primary' style='font-size:25px;'>$penyakitTerbesar</b> dengan tingkat kepercayaan <b class='text-primary' style='font-size:25px;'>$highestPercentage%</b>
-            $a[pengendalian];
-            </div>
-            ";
+            if ($a) {
+                echo "
+                <div class='text-justify'>
+                Berdasarkan hasil perhitungan metode <b>Certainty Factor</b> diatas, dapat disimpulkan bahwa udang anda kemungkinan besar terjangkit penyakit <b class='text-primary' style='font-size:25px;'>$penyakitTerbesar</b> dengan tingkat kepercayaan <b class='text-primary' style='font-size:25px;'>$highestPercentage%</b>
+                $a[pengendalian];
+                </div>
+                ";
+            }
+            else {
+                echo "Tidak diketahui.";
+            }
                 ?>
             </h6>
     </div>
@@ -305,3 +319,22 @@ $id_akun = $p['id_akun'];
 <?php
 include 'footer.php';
 ?>
+<script>
+    $('#form-identifikasi').on('submit', function (e) {
+        e.preventDefault()
+        var selected = 0;
+        var select = $('#form-identifikasi select');
+
+        select.each(function () {
+            if ($(this).val() !== null) {
+                selected++;
+            }
+        });
+
+        if (selected < 1) {
+            alert('Harap pilih minimal 1 kondisi gejala!')
+        } else {
+            this.submit();
+        }
+    })
+</script>
