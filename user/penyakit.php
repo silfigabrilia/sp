@@ -30,7 +30,11 @@ if (isset($_GET['aksi'])) {
             // Tampilkan data penyakit jika tersedia
             if (mysqli_num_rows($data) > 0) {
                 while ($row = mysqli_fetch_assoc($data)) {
-                    echo "<h6 class='m-0 font-weight-bold text-dark'>" . $row['nama_penyakit'] . "</h6>";
+                    $file = '../uploads/'.$row['gambar'];
+                    if (!empty($row['gambar'])) {
+                        echo "<img src='$file' class='img-thumbnail' width='200'>";
+                    }
+                    echo "<h6 class='m-0 font-weight-bold text-dark'>" . $row['nama_penyakit'] . "</h6><br>";
                     echo "<p><strong>Keterangan:</strong> " . $row['keterangan'] . "</p>";
                     echo "<p><strong>Pengendalian:</strong> " . $row['pengendalian'] . "</p>";
                     echo "<hr>";
