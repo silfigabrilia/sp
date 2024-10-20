@@ -7,6 +7,7 @@ if (isset($_GET['aksi'])) {
         $keterangan = $_POST['keterangan'];
         $pengendalian = $_POST['pengendalian'];
 
+        // mysqli_query($conn,"UPDATE tb_penyakit SET nama_penyakit='$nama_penyakit', keterangan='$keterangan', pengendalian='$pengendalian' WHERE id_penyakit='$id_penyakit'");
         $result = mysqli_query($conn, "SELECT gambar FROM tb_penyakit WHERE id_penyakit='$id_penyakit'");
         $row = mysqli_fetch_assoc($result);
         $current_image = $row['gambar'];
@@ -34,7 +35,7 @@ if (isset($_GET['aksi'])) {
         } else {
             mysqli_query($conn, "UPDATE tb_penyakit SET nama_penyakit='$nama_penyakit', keterangan='$keterangan', pengendalian='$pengendalian' WHERE id_penyakit='$id_penyakit'");
         }
-        header("location: penyakit.php");
+        header("location:penyakit.php");
     }
 }
         
@@ -51,7 +52,7 @@ include 'header.php';
         $data = mysqli_query($conn,"SELECT * FROM tb_penyakit WHERE id_penyakit='$_GET[id_penyakit]'");
         $a = mysqli_fetch_array($data)
         ?>
-            <form action="edit_penyakit.php?aksi=ubah" method="POST" enctype="multipart/form-data">
+            <form action="edit_penyakit.php?aksi=ubah" method="POST"  enctype="multipart/form-data">
             <input type="hidden" name="id_penyakit" class="form-control" value="<?=$a['id_penyakit']?>">
                 <div class="form-group">
                     <label>Nama Penyakit</label>

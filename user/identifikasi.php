@@ -70,6 +70,24 @@ $p = mysqli_fetch_array($pass);
 $id_akun = $p['id_akun'];
 ?>
 
+<style scoped>
+#header {
+    background: rgba(40, 58, 90, 0.9);
+}
+section {
+    padding: 0;
+    padding-top: 100px;
+}
+</style>
+
+<section id="portfolio" class="portfolio">
+    <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+        </div>
+
+        <div id="portfolio-flters" class="d-flex justify-content-center" data-aos="fade-up" data-aos-delay="100">
+
 <div class="container">
 	<div class="card shadow p-5 mb-5">
         <?php if (empty($_GET['no_regidentifikasi'])){?>
@@ -84,6 +102,7 @@ $id_akun = $p['id_akun'];
         <?php if (empty($_GET['no_regidentifikasi'])){?>
 
         <div class="card-body">
+            <!-- <form action="identifikasi.php?aksi=identifikasi" method="POST" enctype="multipart/form-data"> -->
             <form action="identifikasi.php?aksi=identifikasi" id="form-identifikasi" method="POST" enctype="multipart/form-data">
                 <div class="table-responsive">
                     <table class="table table-bordered">
@@ -242,6 +261,11 @@ $id_akun = $p['id_akun'];
             <?php
             $data = mysqli_query($conn,"SELECT * FROM tb_penyakit WHERE nama_penyakit='$penyakitTerbesar'");
             $a=mysqli_fetch_array($data);
+            // echo "
+            // <div class='text-justify'>
+            // $a[keterangan];
+            // </div>
+            // ";
             if ($a) {
                 echo "
                 <div class='text-justify'>
@@ -263,6 +287,11 @@ $id_akun = $p['id_akun'];
             <?php
             $data = mysqli_query($conn,"SELECT * FROM tb_penyakit WHERE nama_penyakit='$penyakitTerbesar'");
             $a=mysqli_fetch_array($data);
+            // echo "
+            // <div class='text-justify'>
+            // $a[pengendalian];
+            // </div>
+            // ";
             if ($a) {
                 echo "
                 <div class='text-justify'>
@@ -282,6 +311,13 @@ $id_akun = $p['id_akun'];
             <h5 class="font-weight-bold text primary">Kesimpulan</h5>
             <h6>
             <?php
+            
+            // echo "
+            // <div class='text-justify'>
+            // Berdasarkan hasil perhitungan metode <b>Certainty Factor</b> diatas, dapat disimpulkan bahwa udang anda kemungkinan besar terjangkit penyakit <b class='text-primary' style='font-size:25px;'>$penyakitTerbesar</b> dengan tingkat kepercayaan <b class='text-primary' style='font-size:25px;'>$highestPercentage%</b>
+            // $a[pengendalian];
+            // </div>
+            // ";
             if ($a) {
                 echo "
                 <div class='text-justify'>
@@ -303,7 +339,7 @@ $id_akun = $p['id_akun'];
         <input type="hidden" name="id_akun" value="<?= $id_akun ?>">
         <input type="hidden" name="no_regidentifikasi" value="<?= $_GET['no_regidentifikasi'] ?>">
         <input type="hidden" name="penyakit_cf" value="<?= $penyakitTerbesar ?>">
-        <input type="hidden" name="nilai_cf" value="<?= $highestPersentage ?>">
+        <input type="hidden" name="nilai_cf" value="<?= $highestPercentage ?>">
         
         <div class='text-left'>
             <a href="identifikasi.php" class="btn btn-secondary"><span class="fa fa-reply">&emsp; Identifikasi Ulang</span></a>
@@ -315,10 +351,12 @@ $id_akun = $p['id_akun'];
     ?>
 </div>
 </div>
-
+    </div>
+</section>
 <?php
 include 'footer.php';
 ?>
+
 <script>
     $('#form-identifikasi').on('submit', function (e) {
         e.preventDefault()

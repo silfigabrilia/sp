@@ -2,6 +2,7 @@
 include '../assets/conn/config.php';
 if (isset($_GET['aksi'])) {
     if ($_GET['aksi']=='hapus'){
+        //mysqli_query($conn,"DELETE FROM tb_penyakit WHERE id_penyakit='$_GET[id_penyakit]'");
         $id_penyakit = $_GET['id_penyakit'];
         $data = mysqli_query($conn, "SELECT gambar FROM tb_penyakit WHERE id_penyakit='$id_penyakit'");
         $row = mysqli_fetch_assoc($data);
@@ -46,6 +47,7 @@ include 'header.php';
                         while($a=mysqli_fetch_array($penyakit)){?>
                         <tr>
                             <td class="text-center"><?= $no++ ?></td>
+                            <!-- <td class="text-center"><?= $a['nama_penyakit']?></td> -->
                             <td class="text-center">
                                 <?php if (!empty($a['gambar'])) { ?>
                                     <img src="../uploads/<?= $a['gambar'] ?>" class="img-thumbnail" width="200">

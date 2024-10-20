@@ -57,14 +57,14 @@ include 'header.php';
             <h5 class="font-weight-bold text primary">Detail Perhitungan </h5>
             <h6>
                 <?php
-                $highestPersentage = 0;
+                $highestPercentage = 0;
                 $penyakitTerbesar = "";
                 $data = mysqli_query($conn,"SELECT * FROM tb_penyakit ORDER BY id_penyakit");
                 while($a=mysqli_fetch_array($data)){
 
-                    $sql1 = mysqli_query($conn,"SELECT * FROM tb_penyakit p, 
+                    $sql1 = mysqli_query($conn,"SELECT * FROM  
                         tb_gejala g, tb_identifikasi i, tb_aturan a WHERE g.id_gejala=i.id_gejala 
-                        AND g.id_gejala=a.id_gejala AND p.id_penyakit='$a[id_penyakit]' AND i.id_akun='$_GET[id_akun]' 
+                        AND g.id_gejala=a.id_gejala AND a.id_penyakit='$a[id_penyakit]' AND i.id_akun='$_GET[id_akun]' 
                         AND i.no_regidentifikasi='$_GET[no_regidentifikasi]'");
 
                 $jml_data = mysqli_num_rows($sql1);
@@ -96,8 +96,8 @@ include 'header.php';
                 }
                 if($no>1) {
                     echo "<p>Persentage combine pada penyakit< (" . $a['nama_penyakit'] .") : " . $lastPercentage . "%</b></p>";
-                    if($lastPercentage > $highestPersentage){
-                        $highestPersentage = $lastPercentage;
+                    if($lastPercentage > $highestPercentage){
+                        $highestPercentage = $lastPercentage;
                         $penyakitTerbesar = $a['nama_penyakit'];
 
                     }
@@ -105,7 +105,7 @@ include 'header.php';
 
             }
             echo "
-            <b class='text-primary'>Nilai Terbesar " . $highestPersentage . "
+            <b class='text-primary'>Nilai Terbesar " . $highestPercentage . "
             %<br></b>
             <b class='text-primary'> Penyakit dengan nilai terbesar : " . $penyakitTerbesar . "<br></b>";
             //$pembulatan = number_format($highestPersentage,2);
@@ -154,7 +154,7 @@ include 'header.php';
             
             echo "
             <div class='text-justify'>
-            Berdasarkan hasil perhitungan metode <b>Certainty Factor</b> diatas, dapat disimpulkan bahwa udang anda kemungkinan besar terjangkit penyakit <b class='text-primary' style='font-size:25px;'>$penyakitTerbesar</b> dengan tingkat kepercayaan <b class='text-primary' style='font-size:25px;'>$highestPersentage</b>
+            Berdasarkan hasil perhitungan metode <b>Certainty Factor</b> diatas, dapat disimpulkan bahwa udang anda kemungkinan besar terjangkit penyakit <b class='text-primary' style='font-size:25px;'>$penyakitTerbesar</b> dengan tingkat kepercayaan <b class='text-primary' style='font-size:25px;'>$highestPercentage</b>
             $a[pengendalian];
             </div>
             ";

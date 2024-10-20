@@ -11,7 +11,23 @@ if (isset($_GET['aksi'])) {
         
 include 'header.php';?>
 
-<div class="container">
+<style scoped>
+#header {
+    background: rgba(40, 58, 90, 0.9);
+}
+section {
+    padding: 0;
+    padding-top: 100px;
+}
+</style>
+
+<section id="portfolio" class="portfolio">
+    <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+        </div>
+
+        <div id="portfolio-flters" data-aos="fade-up" data-aos-delay="100">
 
 <?php 
     if (isset($_GET['pesan'])) {
@@ -61,7 +77,9 @@ include 'header.php';?>
                 </div>
         </div>
     </div>
-
+    </div>
+    </div>
+</section>
 <?php
 include 'footer.php';
 ?>
